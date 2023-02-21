@@ -30,7 +30,7 @@
 
       const loadMap = async year => {
         // Load the CSV file for the selected year
-        const response = await fetch(`python proj\StormEvents${year}.csv`);
+        const response = await fetch(`StormEvents2022.html`);
         const csv = await response.text();
         const rows = csv.split('\n').slice(1);
         const data = rows.map(row => {

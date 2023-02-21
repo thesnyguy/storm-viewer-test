@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Storm Event Maps</title>
+    <style>
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Storm Event Maps</h1>
+    <label for="year">Select a year:</label>
+    <select id="year">
+      <option value="1996">1996</option>
+      <!-- Add options for the rest of the years -->
+      <option value="1997">1997</option>
+      <option value="1998">1998</option>
+      <!-- ... -->
+      <option value="2022">2022</option>
+    </select>
+    <button id="load-map">Load Map</button>
+    <div id="map"></div>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css"/>
+    <script>
+      const map = L.map('map').setView([38, -97], 4);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      const loadMap = async year => {
+        // Load the HTML file for the selected year
+        const response = await fetch(`StormEvents${year}.html`);
+        const html = await response.text();
+        // Add the HTML content to the map container
+        document.getElementById('map').innerHTML = html;
+      };
+      
+
+      document.getElementById('load-map').addEventListener('click', () => {
+        const year = document.getElementById('year').value;
+        loadMap(year);
+      });
+    </script>
+  </body>
+</html>

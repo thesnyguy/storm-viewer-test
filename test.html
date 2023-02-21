@@ -29,31 +29,11 @@
       }).addTo(map);
 
       const loadMap = async year => {
-        // Load the CSV file for the selected year
-        const response = await fetch(`StormEvents2022.html`);
-        const csv = await response.text();
-        const rows = csv.split('\n').slice(1);
-        const data = rows.map(row => {
-          const columns = row.split(',');
-          return {
-            beginLat: parseFloat(columns[0]),
-            beginLon: parseFloat(columns[1]),
-            endLat: parseFloat(columns[2]),
-            endLon: parseFloat(columns[3])
-            // Add other relevant information as needed
-          };
-        });
-      
-        // Add the markers and polylines to the map
-        data.forEach(event => {
-          // Create a marker at the begin location
-          L.marker([event.beginLat, event.beginLon]).addTo(map);
-      
-          // Create a polyline between the begin and end locations
-          L.polyline([[event.beginLat, event.beginLon], [event.endLat, event.endLon]]).addTo(map);
-        });
+        // Load the HTML file for the selected year
+        const response = await fetch(`StormEvents${year}.html`);
+        const html = await response.text();
+        document.getElementById("map").innerHTML = html;
       };
-      
 
       document.getElementById('load-map').addEventListener('click', () => {
         const year = document.getElementById('year').value;

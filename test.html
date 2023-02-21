@@ -16,6 +16,9 @@
     <select id="year">
       <option value="1996">1996</option>
       <!-- Add options for the rest of the years -->
+      <option value="1997">1997</option>
+      <option value="1998">1998</option>
+      <!-- ... -->
       <option value="2022">2022</option>
     </select>
     <button id="load-map">Load Map</button>
@@ -32,8 +35,10 @@
         // Load the HTML file for the selected year
         const response = await fetch(`StormEvents${year}.html`);
         const html = await response.text();
-        document.getElementById("map").innerHTML = html;
+        // Add the HTML content to the map container
+        document.getElementById('map').innerHTML = html;
       };
+      
 
       document.getElementById('load-map').addEventListener('click', () => {
         const year = document.getElementById('year').value;
